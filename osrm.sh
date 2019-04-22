@@ -7,7 +7,7 @@ _sig() {
 
 trap _sig SIGKILL SIGTERM SIGHUP SIGINT EXIT
 
-if [ ! -f $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.hsgr ]; then
+if [ ! -f $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.mldgr]; then
   if [ ! -f $OSRM_DATA_PATH/$OSRM_MAP_NAME.osm.pbf ]; then
     echo "Downloading $OSRM_MAP_NAME from $OSRM_MAP_URL"
     wget -O $OSRM_DATA_PATH/$OSRM_MAP_NAME.osm.pbf $OSRM_MAP_URL
@@ -34,13 +34,15 @@ if [ ! -f $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.hsgr ]; then
   rm $OSRM_DATA_PATH/$OSRM_MAP_NAME.osm.pbf
     
   echo "Creating the Hierarchy from $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm"
-  osrm-contract $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm
+
+  osrm-partition $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm
   if [ ${reteval} -ne 0 ]; then
-    echo "$OSRM_MAP_NAME hierarchy precomputation to $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.hsgr failed"
+    echo "$OSRM_MAP_NAME hierarchy precomputation to $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm failed"
     exit 1;
   fi
-  FILESIZE=$(stat -c%s "$OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.hsgr")
-  echo "$OSRM_MAP_NAME hierarchy precomputed to $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.hsgr ($FILESIZE bytes)"
+  osrm-customize $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm
+  FILESIZE=$(stat -c%s "$OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.mldgr")
+  echo "$OSRM_MAP_NAME hierarchy precomputed to $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.mldgr ($FILESIZE bytes)"
   
   echo "$OSRM_MAP_NAME.osm.pbf pre-processing ended"
 fi
