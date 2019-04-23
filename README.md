@@ -25,6 +25,6 @@ $ docker pull simonepri/osrm-backend
 $ docker run -d -p 5000:5000 --name osrm-api -e OSRM_MAP_NAME="center-italy" -e OSRM_MAP_URL="http://download.geofabrik.de/europe/italy/centro-latest.osm.pbf" -e OSRM_EXT_PROFILE="car" -e OSRM_API_PARAMS="--port 5000" simonepri/osrm-backend:latest
 ```
 
-# Updates by Lignumaqua
+### Updates by Lignumaqua
 
 Changed sh file to use Curl rather than wget which is no longer available in the OSRM Docker.
