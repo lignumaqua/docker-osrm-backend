@@ -1,6 +1,4 @@
 #!/bin/sh
-apt-get update
-apt-get install curl -y
 
 OSRM_DATA_PATH="/data"
 
@@ -12,6 +10,8 @@ trap _sig SIGKILL SIGTERM SIGHUP SIGINT EXIT
 
 if [ ! -f $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.mldgr ]; then
   if [ ! -f $OSRM_DATA_PATH/$OSRM_MAP_NAME.osm.pbf ]; then
+    apt-get update
+    apt-get install curl -y
     echo "Downloading $OSRM_MAP_NAME from $OSRM_MAP_URL"
     curl -L $OSRM_MAP_URL --create-dirs -o $OSRM_DATA_PATH/$OSRM_MAP_NAME.osm.pbf 
     reteval=$?
