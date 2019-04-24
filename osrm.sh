@@ -1,5 +1,4 @@
 #!/bin/sh
-apt-get update  
 apt-get install curl -y
 
 OSRM_DATA_PATH="/data"
