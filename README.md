@@ -27,4 +27,6 @@ $ docker run -d -p 5000:5000 --name osrm-api -e OSRM_MAP_NAME="center-italy" -e 
 
 ### Updates by Lignumaqua
 
-Changed sh file to use Curl rather than wget which is no longer available in the OSRM Docker.
+1. Added Curl to Docker file. Not present in OSRM Source Docker.
+2. Changed sh file to use Curl rather than wget.
+3. On startup checks for existence of either .osrm.hsgr from osrm.contract or osrm.mldgr from osrm.customize before downloading and extracting a new osm file. 
