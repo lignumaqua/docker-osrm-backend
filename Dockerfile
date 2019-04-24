@@ -2,6 +2,8 @@ FROM osrm/osrm-backend:latest
 MAINTAINER Simone Primarosa <info@simoneprimarosa.com>
 # Edited by Mike Wood to use MLD toolchain
 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends curl
 RUN mkdir /data
 VOLUME ["/data"]
 
