@@ -1,6 +1,8 @@
 # docker-osrm-backend
 > 🛣 The Open Source Routing Machine Docker ready!
 
+# Forked from simonepri/docker-osrm-backend
+
 This image is based on the official [osrm-backend](https://hub.docker.com/r/osrm/osrm-backend/) Docker image with the addition of some awesome features!
 
 ## Features
@@ -21,11 +23,13 @@ You need to specify those env vars in order to make the startup process successf
 Example of usage.
 
 ```bash
-$ docker pull simonepri/osrm-backend
-$ docker run -d -p 5000:5000 --name osrm-api -e OSRM_MAP_NAME="center-italy" -e OSRM_MAP_URL="http://download.geofabrik.de/europe/italy/centro-latest.osm.pbf" -e OSRM_EXT_PROFILE="car" -e OSRM_API_PARAMS="--port 5000" simonepri/osrm-backend:latest
+$ docker pull lignumaqua/osrm-backend
+$ docker run -d -p 5000:5000 --name osrm-api -e OSRM_MAP_NAME="center-italy" -e OSRM_MAP_URL="http://download.geofabrik.de/europe/italy/centro-latest.osm.pbf" -e OSRM_EXT_PROFILE="car" -e OSRM_API_PARAMS="--port 5000" lignumaqua/osrm-backend:latest
 ```
 
-### Updates by Lignumaqua
+Also recommended to map the docker /data folder to persistent storage outside the docker using the -v directive.
+
+## Updates by Lignumaqua
 
 1. Added Curl to Docker file. Not present in OSRM Source Docker.
 2. Changed sh file to use Curl rather than wget.
