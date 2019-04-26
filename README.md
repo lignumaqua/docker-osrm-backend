@@ -10,7 +10,7 @@ This image is based on the official [osrm-backend](https://hub.docker.com/r/osrm
 * Configurable with ENV variables.
 
 ## Configuration
-You need to specify those env vars in order to make the startup process successfully.
+You need to specify these environment variables.
 
  Name | Description
 ------|-------------
@@ -25,8 +25,7 @@ Example of usage.
 
 ```bash
 $ docker pull lignumaqua/osrm-backend
-$ docker run -d -p 5000:5000 --name osrm-api -e OSRM_MAP_NAME="center-italy" -e OSRM_MAP_URL="http://download.geofabrik.de/europe/italy/centro-latest.osm.pbf" -e OSRM_EXT_PROFILE="car" -e OSRM_API_PARAMS="--port 5000" lignumaqua/osrm-backend:latest
-OSRM_PIPELINE="MLD" lignumaqua/osrm-backend:latest
+$ docker run -d -p 5000:5000 --name osrm-api -e OSRM_MAP_NAME="center-italy" -e OSRM_MAP_URL="http://download.geofabrik.de/europe/italy/centro-latest.osm.pbf" -e OSRM_EXT_PROFILE="car" -e OSRM_API_PARAMS="--port 5000" lignumaqua/osrm-backend:latest OSRM_PIPELINE="MLD" lignumaqua/osrm-backend:latest
 ```
 
 Also recommended to map the docker /data folder to persistent storage outside the docker using the -v directive.
@@ -36,4 +35,4 @@ Also recommended to map the docker /data folder to persistent storage outside th
 1. Added Curl to Docker file. Not present in OSRM Source Docker.
 2. Changed sh file to use Curl rather than wget.
 3. On startup checks for existence of either .osrm.hsgr from osrm.contract or osrm.mldgr from osrm.customize before downloading and extracting a new osm file. 
-4. Option thrugth env variable to choose MLD or CH toolchain
+4. Option through OSRM_PIPELINE variable to choose MLD or CH toolchain
