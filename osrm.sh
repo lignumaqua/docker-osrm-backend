@@ -33,18 +33,26 @@ if [ ! -f $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.mldgr ] && [ ! -f $OSRM_DATA_PATH/
   
   echo "Deleting $OSRM_DATA_PATH/$OSRM_MAP_NAME.osm.pbf"
   rm $OSRM_DATA_PATH/$OSRM_MAP_NAME.osm.pbf
-    
-  echo "Creating the Hierarchy from $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm"
-
-  osrm-partition $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm
-  if [ ${reteval} -ne 0 ]; then
-    echo "$OSRM_MAP_NAME hierarchy precomputation to $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm failed"
-    exit 1;
-  fi
-  osrm-customize $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm
-  FILESIZE=$(stat -c%s "$OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.mldgr")
-  echo "$OSRM_MAP_NAME hierarchy precomputed to $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.mldgr ($FILESIZE bytes)"
   
+  if [ $OSRM_PIPELINE == 'CH' ]; then
+    echo "Contracting $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm"
+    OSRM_API_PARAMS="$OSRM_API_PARAMS --algorithm CH"
+    osrm-contract $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm
+    FILESIZE=$(stat -c%s "$OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.hsgr")
+    echo "$OSRM_MAP_NAME hierarchy precomputed using $OSRM_PIPELINE to $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.hsgr ($FILESIZE bytes)"
+  else
+    OSRM_PIPELINE="MLD"
+    echo "Creating Hierarchy from $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm"
+    OSRM_API_PARAMS="$OSRM_API_PARAMS --algorithm MLD"
+    osrm-partition $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm
+    if [ ${reteval} -ne 0 ]; then
+     echo "$OSRM_MAP_NAME hierarchy precomputation to $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm failed"
+      exit 1;
+    fi
+    osrm-customize $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm
+    FILESIZE=$(stat -c%s "$OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.mldgr")
+    echo "$OSRM_MAP_NAME precomputed using $OSRM_PIPELINE to $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.mldgr ($FILESIZE bytes)"
+  fi
   echo "$OSRM_MAP_NAME.osm.pbf pre-processing ended"
 fi
 
