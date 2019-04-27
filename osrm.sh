@@ -34,7 +34,7 @@ if [ ! -f $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.mldgr ] && [ ! -f $OSRM_DATA_PATH/
   echo "Deleting $OSRM_DATA_PATH/$OSRM_MAP_NAME.osm.pbf"
   rm $OSRM_DATA_PATH/$OSRM_MAP_NAME.osm.pbf
   
-  if [ $OSRM_PIPELINE == 'CH' ]; then
+  if [ "$OSRM_PIPELINE" == "CH" ]; then
     echo "Contracting $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm"
     OSRM_API_PARAMS="$OSRM_API_PARAMS --algorithm CH"
     osrm-contract $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm
