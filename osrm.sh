@@ -34,7 +34,7 @@ if [ ! -f $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.mldgr ] && [ ! -f $OSRM_DATA_PATH/
   echo "Deleting $OSRM_DATA_PATH/$OSRM_MAP_NAME.osm.pbf"
   rm $OSRM_DATA_PATH/$OSRM_MAP_NAME.osm.pbf
   
-  if [ "$OSRM_PIPELINE" == "CH" ]; then
+  if [ "$OSRM_PIPELINE" = "CH" ]; then
     echo "Contracting $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm"
     osrm-contract $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm
     FILESIZE=$(stat -c%s "$OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.hsgr")
@@ -55,7 +55,7 @@ if [ ! -f $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.mldgr ] && [ ! -f $OSRM_DATA_PATH/
 fi
 
 echo "Pipeline = $OSRM_PIPELINE"
-if [ "$OSRM_PIPELINE" == "CH" ]; then
+if [ "$OSRM_PIPELINE" = "CH" ]; then
   OSRM_API_PARAMS="$OSRM_API_PARAMS --algorithm CH"
 else
   OSRM_API_PARAMS="$OSRM_API_PARAMS --algorithm MLD"
