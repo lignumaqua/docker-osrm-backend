@@ -6,7 +6,9 @@ _sig() {
   kill -TERM $child 2>/dev/null
 }
 
-trap _sig SIGKILL SIGTERM SIGHUP SIGINT EXIT
+# trap _sig SIGKILL SIGTERM SIGHUP SIGINT EXIT
+
+# Check for existing mldgr or hsgr files and skip extraction if present
 
 if [ ! -f $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.mldgr ] && [ ! -f $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.hsgr ]; then
   if [ ! -f $OSRM_DATA_PATH/$OSRM_MAP_NAME.osm.pbf ]; then
