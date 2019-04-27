@@ -54,11 +54,13 @@ if [ ! -f $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm.mldgr ] && [ ! -f $OSRM_DATA_PATH/
   echo "$OSRM_MAP_NAME.osm.pbf pre-processing ended"
 fi
 
+echo "Pipeline = $OSRM_PIPELINE"
 if [ "$OSRM_PIPELINE" == "CH" ]; then
   OSRM_API_PARAMS="$OSRM_API_PARAMS --algorithm CH"
 else
   OSRM_API_PARAMS="$OSRM_API_PARAMS --algorithm MLD"
 fi
+echo "API Params = $OSRM_API_PARAMS"
 
 echo "Starting routing engine HTTP server"
 osrm-routed $OSRM_DATA_PATH/$OSRM_MAP_NAME.osrm $OSRM_API_PARAMS &
