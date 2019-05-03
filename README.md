@@ -24,8 +24,8 @@ You need to specify these environment variables.
 Example of usage.
 
 ```bash
-$ docker pull lignumaqua/osrm-backend
-$ docker run -d -p 5000:5000 --name osrm-api -e OSRM_MAP_NAME="center-italy" -e OSRM_MAP_URL="http://download.geofabrik.de/europe/italy/centro-latest.osm.pbf" -e OSRM_EXT_PROFILE="car" -e OSRM_API_PARAMS="--port 5000" lignumaqua/osrm-backend:latest OSRM_PIPELINE="MLD" lignumaqua/osrm-backend:latest
+$ docker pull lignumaqua/osrm
+$ docker run -d -p 5000:5000 --name osrm-backend -e OSRM_MAP_NAME="center-italy" -e OSRM_MAP_URL="http://download.geofabrik.de/europe/italy/centro-latest.osm.pbf" -e OSRM_EXT_PROFILE="car" -e OSRM_API_PARAMS="--port 5000" lignumaqua/osrm-backend:latest OSRM_PIPELINE="MLD" lignumaqua/osrm:latest
 ```
 
 Also recommended to map the docker /data folder to persistent storage outside the docker using the -v directive.
